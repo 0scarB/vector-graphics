@@ -1,19 +1,19 @@
-package matrix;
+package geometry;
 
 import java.util.ArrayList;
 
-public class Matrix2D {
+public class PointMatrix {
   public int length = 0;
   public final ArrayList<Double> xValues = new ArrayList<Double>(0);
   public final ArrayList<Double> yValues = new ArrayList<Double>(0);
-  public final ArrayList<Integer> overwriteableVectors
+  public final ArrayList<Integer> overwriteablePoints
     = new ArrayList<Integer>(0);
 
-  public int addVector(double x, double y) {
-    int overwriteableVectorsLength = overwriteableVectors.size();
-    if (overwriteableVectorsLength > 0) {
-      int refIndex = overwriteableVectors.remove(
-        overwriteableVectorsLength - 1
+  public int addPoint(double x, double y) {
+    int overwriteablePointsLength = overwriteablePoints.size();
+    if (overwriteablePointsLength > 0) {
+      int refIndex = overwriteablePoints.remove(
+        overwriteablePointsLength - 1
       );
       xValues.set(refIndex, x);
       yValues.set(refIndex, y);
@@ -25,10 +25,10 @@ public class Matrix2D {
     return length - 1;
   }
 
-  public void removeVector(int refIndex) throws IndexOutOfBoundsException {
+  public void removePoint(int refIndex) throws IndexOutOfBoundsException {
     if (refIndex >= length) {
       throw new IndexOutOfBoundsException();
     }
-    overwriteableVectors.add(refIndex);
+    overwriteablePoints.add(refIndex);
   }
 }

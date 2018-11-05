@@ -1,38 +1,38 @@
-package matrix;
+package geometry;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
 import utils.Utils;
 
-public class Matrix2DTest {
+public class PointMatrixTest {
 
-  @Test public void addVector_AppendsVector() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void addPoint_AppendsPoint() {
+    PointMatrix matrix = new PointMatrix();
     double x = 1;
     double y = 2;
-    matrix.addVector(x, y);
+    matrix.addPoint(x, y);
     assertEquals(matrix.xValues.get(0), x, Utils.DOUBLE_ASSERT_EQUALS_PERCISION);
     assertEquals(matrix.yValues.get(0), y, Utils.DOUBLE_ASSERT_EQUALS_PERCISION);
   }
 
-  @Test public void addVector_IncrementsLength() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void addPoint_IncrementsLength() {
+    PointMatrix matrix = new PointMatrix();
     assertEquals(matrix.length, 0);
 
     double x = 1;
     double y = 2;
-    matrix.addVector(x, y);
+    matrix.addPoint(x, y);
     assertEquals(matrix.length, 1);
 
-    matrix.addVector(x, y);
+    matrix.addPoint(x, y);
     assertEquals(matrix.length, 2);
 
-    matrix.addVector(x, y);
+    matrix.addPoint(x, y);
     assertEquals(matrix.length, 3);
   }
 
-  @Test public void addVector_ReturnsCorrectReferenceIndex() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void addPoint_ReturnsCorrectReferenceIndex() {
+    PointMatrix matrix = new PointMatrix();
 
     double[] expectedXValues = new double[]{1, 2, 3};
     double[] expectedYValues = new double[]{4, 5, 6};
@@ -43,7 +43,7 @@ public class Matrix2DTest {
     ) {
       double x = expectedXValues[expectedReferenceIndex];
       double y = expectedYValues[expectedReferenceIndex];
-      int referenceIndex = matrix.addVector(x, y);
+      int referenceIndex = matrix.addPoint(x, y);
       assertEquals(referenceIndex, expectedReferenceIndex);
       assertEquals(
         matrix.xValues.get(referenceIndex),
@@ -58,19 +58,19 @@ public class Matrix2DTest {
     }
   }
 
-  @Test public void addVector_ReturnsOverwriteableVector() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void addPoint_ReturnsOverwriteablePoint() {
+    PointMatrix matrix = new PointMatrix();
 
-    matrix.addVector(1, 2);
-    matrix.addVector(3, 4);
-    matrix.addVector(5, 6);
+    matrix.addPoint(1, 2);
+    matrix.addPoint(3, 4);
+    matrix.addPoint(5, 6);
 
     int expectedReferenceIndex = 1;
-    matrix.overwriteableVectors.add(expectedReferenceIndex);
+    matrix.overwriteablePoints.add(expectedReferenceIndex);
 
     double x = 7;
     double y = 8;
-    int referenceIndex = matrix.addVector(x, y);
+    int referenceIndex = matrix.addPoint(x, y);
     assertEquals(referenceIndex, expectedReferenceIndex);
     assertEquals(
       matrix.xValues.get(referenceIndex),
@@ -84,43 +84,43 @@ public class Matrix2DTest {
     );
   }
 
-  @Test public void addVector_RemovesOverwriteableVector() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void addPoint_RemovesOverwriteablePoint() {
+    PointMatrix matrix = new PointMatrix();
 
-    matrix.addVector(1, 2);
-    matrix.addVector(3, 4);
-    matrix.addVector(5, 6);
+    matrix.addPoint(1, 2);
+    matrix.addPoint(3, 4);
+    matrix.addPoint(5, 6);
 
     int expectedReferenceIndex = 1;
-    matrix.overwriteableVectors.add(expectedReferenceIndex);
+    matrix.overwriteablePoints.add(expectedReferenceIndex);
 
-    int referenceIndex = matrix.addVector(0, 0);
+    int referenceIndex = matrix.addPoint(0, 0);
 
-    assertTrue(matrix.overwriteableVectors.isEmpty());
+    assertTrue(matrix.overwriteablePoints.isEmpty());
   }
 
-  @Test public void removeVector_AddsToOverwriteableVectors() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void removePoint_AddsToOverwriteablePoints() {
+    PointMatrix matrix = new PointMatrix();
 
-    matrix.addVector(1, 2);
-    matrix.removeVector(0);
-    assertEquals((int) matrix.overwriteableVectors.get(0), 0);
+    matrix.addPoint(1, 2);
+    matrix.removePoint(0);
+    assertEquals((int) matrix.overwriteablePoints.get(0), 0);
   }
 
-  @Test public void removeVector_ThrowsIndexOutOfBoundsException() {
-    Matrix2D matrix = new Matrix2D();
+  @Test public void removePoint_ThrowsIndexOutOfBoundsException() {
+    PointMatrix matrix = new PointMatrix();
 
     try {
-      matrix.removeVector(0);
+      matrix.removePoint(0);
       fail();
     } catch(IndexOutOfBoundsException err) {}
 
-    matrix.addVector(1, 2);
-    matrix.addVector(3, 4);
-    matrix.addVector(5, 6);
+    matrix.addPoint(1, 2);
+    matrix.addPoint(3, 4);
+    matrix.addPoint(5, 6);
 
     try {
-      matrix.removeVector(3);
+      matrix.removePoint(3);
       fail();
     } catch(IndexOutOfBoundsException err) {}
   }

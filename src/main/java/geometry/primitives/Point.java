@@ -1,12 +1,14 @@
-package matrix;
+package geometry.primitives;
 
-public class Vector2D {
-  public final Matrix2D matrix;
+import geometry.PointMatrix;
+
+public class Point {
+  public final PointMatrix matrix;
   public final int refIndex;
 
-  public Vector2D(Matrix2D matrix, double x, double y) {
+  public Point(PointMatrix matrix, double x, double y) {
     this.matrix = matrix;
-    this.refIndex = matrix.addVector(x, y);
+    this.refIndex = matrix.addPoint(x, y);
   }
 
   public void update(double x, double y) {
@@ -15,7 +17,7 @@ public class Vector2D {
   }
 
   public void remove() {
-    matrix.removeVector(refIndex);
+    matrix.removePoint(refIndex);
   }
 
   public double getX() {
