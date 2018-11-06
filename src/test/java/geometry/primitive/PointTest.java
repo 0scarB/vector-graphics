@@ -1,9 +1,10 @@
-package geometry.primitives;
+package geometry.primitive;
 
 import org.junit.Test;
+import org.junit.Ignore;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
-import utils.Utils;
+import utils.TestingUtil;
 import geometry.PointMatrix;
 
 public class PointTest {
@@ -15,7 +16,7 @@ public class PointTest {
     assertSame(p.matrix, matrix);
   }
 
-  @Test public void Point_AssignsReferenceIndexToAddPointReturnValue() {
+  @Test public void Point_AssignsReferenceIndexToMatrixaddPointReturnValue() {
     int expectedReferenceIndex = 7;
     PointMatrix mockMatrix = mock(PointMatrix.class);
     when(mockMatrix.addPoint(1, 2)).thenReturn(expectedReferenceIndex);
@@ -33,12 +34,12 @@ public class PointTest {
     assertEquals(
       matrix.xValues.get(p.refIndex),
       1,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
     assertEquals(
       matrix.yValues.get(p.refIndex),
       2,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
 
     p.update(3, 4);
@@ -46,12 +47,12 @@ public class PointTest {
     assertEquals(
       matrix.xValues.get(p.refIndex),
       3,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
     assertEquals(
       matrix.yValues.get(p.refIndex),
       4,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
 
@@ -64,6 +65,45 @@ public class PointTest {
     verify(mockMatrix, times(1)).removePoint(p.refIndex);
   }
 
+  @Ignore @Test public void remove_IsCalledOnGarbageCollection() {
+    PointMatrix matrix = new PointMatrix();
+    double x1 = 1;
+    double y1 = 2;
+    Point p1 = new Point(matrix, x1, y1);
+
+    assertEquals(
+      x1,
+      matrix.xValues.get(0),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      y1,
+      matrix.yValues.get(0),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+
+    p1 = null;
+    System.gc();
+    System.runFinalization();
+
+    double x2 = 3;
+    double y2 = 4;
+    Point p2 = new Point(matrix, x2, y2);
+
+    assertEquals(1, matrix.xValues.size());
+    assertEquals(1, matrix.yValues.size());
+    assertEquals(
+      x2,
+      matrix.xValues.get(0),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      y2,
+      matrix.yValues.get(0),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+  }
+
   @Test public void getX_ReturnsMatrixXValueAtReferenceIndex() {
     PointMatrix matrix = new PointMatrix();
     Point p = new Point(matrix, 1, 2);
@@ -71,7 +111,7 @@ public class PointTest {
     assertEquals(
       p.getX(),
       matrix.xValues.get(p.refIndex),
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
 
@@ -82,7 +122,7 @@ public class PointTest {
     assertEquals(
       p.getY(),
       matrix.yValues.get(p.refIndex),
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
 }

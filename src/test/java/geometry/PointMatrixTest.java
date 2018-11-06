@@ -2,7 +2,7 @@ package geometry;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
-import utils.Utils;
+import utils.TestingUtil;
 
 public class PointMatrixTest {
 
@@ -11,8 +11,8 @@ public class PointMatrixTest {
     double x = 1;
     double y = 2;
     matrix.addPoint(x, y);
-    assertEquals(matrix.xValues.get(0), x, Utils.DOUBLE_ASSERT_EQUALS_PERCISION);
-    assertEquals(matrix.yValues.get(0), y, Utils.DOUBLE_ASSERT_EQUALS_PERCISION);
+    assertEquals(matrix.xValues.get(0), x, TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION);
+    assertEquals(matrix.yValues.get(0), y, TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION);
   }
 
   @Test public void addPoint_IncrementsLength() {
@@ -48,12 +48,12 @@ public class PointMatrixTest {
       assertEquals(
         matrix.xValues.get(referenceIndex),
         x,
-        Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+        TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
       );
       assertEquals(
         matrix.yValues.get(referenceIndex),
         y,
-        Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+        TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
       );
     }
   }
@@ -75,12 +75,12 @@ public class PointMatrixTest {
     assertEquals(
       matrix.xValues.get(referenceIndex),
       x,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
     assertEquals(
       matrix.yValues.get(referenceIndex),
       y,
-      Utils.DOUBLE_ASSERT_EQUALS_PERCISION
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
 

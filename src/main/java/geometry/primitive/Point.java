@@ -1,8 +1,8 @@
-package geometry.primitives;
+package geometry.primitive;
 
 import geometry.PointMatrix;
 
-public class Point {
+public class Point extends AbstractPrimitive {
   public final PointMatrix matrix;
   public final int refIndex;
 
