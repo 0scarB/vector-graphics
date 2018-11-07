@@ -206,4 +206,25 @@ public class GeometryUtilTest {
       TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
+
+  @Test public void slopeAngle_HandlesPointsInSamePosition() {
+    PointMatrix matrix = new PointMatrix();
+    Point p1 = new Point(matrix, 0, 0);
+    Point p2 = new Point(matrix, 0, 0);
+
+    assertEquals(
+      0,
+      GeometryUtil.slopeAngle(p1, p2),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+
+    Point p3 = new Point(matrix, 2, 1);
+    Point p4 = new Point(matrix, 2, 1);
+
+    assertEquals(
+      0,
+      GeometryUtil.slopeAngle(p3, p4),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+  }
 }
