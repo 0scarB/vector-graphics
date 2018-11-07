@@ -1,5 +1,6 @@
 package geometry.primitive.pathsegment;
 
+import exception.NumberRangeException;
 import geometry.GeometryUtil;
 import geometry.PointMatrix;
 import geometry.primitive.Point;
@@ -27,7 +28,11 @@ public class Line extends AbstractPathSegment {
     return GeometryUtil.dist(p1, p2);
   }
 
-  public double[] interpolate(double frac) {
+  public double[] interpolate(double frac) throws NumberRangeException {
+    if (frac < 0 || frac > 1) {
+      NumberRangeException e = new NumberRangeException("frac", 0, 1);
+      throw e;
+    }
     double frac2 = 1 - frac;
     double[] vector = {
       p1.getX() * frac2 + p2.getX() * frac,
