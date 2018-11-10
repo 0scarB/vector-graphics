@@ -36,4 +36,12 @@ public class GeometryUtil {
     // If both points are in the same position.
     return 0;
   }
+
+  public static double normalizeAngle(double angle) {
+    double angleMod = angle % (2 * Math.PI);
+    if (angleMod < 0) {
+      return 2 * Math.PI + angleMod;
+    }
+    return angleMod;
+  }
 }

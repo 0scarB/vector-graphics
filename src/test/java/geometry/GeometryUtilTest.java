@@ -227,4 +227,66 @@ public class GeometryUtilTest {
       TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
     );
   }
+
+  @Test public void normalizeAngle_DoesntChangeAnglesBetween0And360Degrees() {
+    assertEquals(
+      0,
+      GeometryUtil.normalizeAngle(0),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      Math.PI,
+      GeometryUtil.normalizeAngle(Math.PI),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      2 * Math.PI - 0.01,
+      GeometryUtil.normalizeAngle(2 * Math.PI - 0.01),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+  }
+  @Test public void normalizeAngle_HandlesNumbersGreaterEqualTo2Pi() {
+    assertEquals(
+      0,
+      GeometryUtil.normalizeAngle(2 * Math.PI),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      Math.PI,
+      GeometryUtil.normalizeAngle(3 * Math.PI),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      3 * Math.PI / 2,
+      GeometryUtil.normalizeAngle(7.5 * Math.PI),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+  }
+  @Test public void normalizeAngle_HandlesNegativeNumbers() {
+    assertEquals(
+      3 * Math.PI / 2,
+      GeometryUtil.normalizeAngle(-Math.PI / 2),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      Math.PI / 2,
+      GeometryUtil.normalizeAngle(-3 * Math.PI / 2),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      0,
+      GeometryUtil.normalizeAngle(-2 * Math.PI),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      Math.PI / 2,
+      GeometryUtil.normalizeAngle(-7 * Math.PI / 2),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+    assertEquals(
+      3 * Math.PI / 2,
+      GeometryUtil.normalizeAngle(-9 * Math.PI / 2),
+      TestingUtil.DOUBLE_ASSERT_EQUALS_PERCISION
+    );
+  }
 }
